@@ -1,1 +1,3 @@
-# testing ideas for game
+# Test game
+
+testing ideas I have
