@@ -1,1 +1,1 @@
-# simple-game
+# testing ideas for game
