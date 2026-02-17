@@ -1,0 +1,104 @@
+.button {
+    display: flex;
+    font: inherit;
+    /* border: none; */
+    border-radius: var(--border-radius-full);
+    padding: 0 var(--spacing-double);
+    font-size: 1em;
+    font-weight: var(--font-weight-bold);
+    font-family: inherit;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+    transition: background-color var(--transition-simple), transform 0.1s linear;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button-padding-full{
+    padding: 0 var(--spacing-double);
+  }
+
+  .button-padding-none{
+    padding: 0;
+  }
+
+.button-wrapper {
+  perspective: 200px;
+}
+
+  .button-size-s {
+    height: var(--input-height-s);
+    border-radius: var(--border-radius-half);
+    font-size: 14px;
+    min-width: var(--input-height-s);
+  }
+
+  .button-size-m {
+    height: var(--input-height-m);
+    font-size: 15px;
+    min-width: var(--input-height-m)
+  }
+
+  .button-size-l {
+    height: var(--input-height-l);
+    font-size: 16px;
+    min-width: var(--input-height-l)
+  }
+  
+  .button-size-xl {
+    height: var(--input-height-xl);
+    font-size: 17px;
+    min-width: var(--input-height-xl)
+  }
+
+  .button-disabled {
+    cursor: default;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .button-color-primary{
+    background-color: var(--palette-primary);
+    color: var(--palette-primary-contrast);
+  }
+
+  .button-color-primary:hover {
+    background-color: var(--palette-surface-primary);
+  }
+
+  .button-color-secondary{
+    background-color: var(--palette-secondary);
+    color: var(--palette-secondary-contrast);
+  }
+
+  .button-color-secondary:hover {
+    background-color: var(--palette-secondary-dark);
+  }
+
+  .button-color-regular {
+    background-color: var(--palette-surface-primary);
+    color: var(--font-color-subtle);
+  }
+
+  .button-color-regular:hover {
+    background-color: var(--palette-surface-primary-elevated);
+    color: var(--font-color-content);
+  }
+
+
+  .button-color-regular-elevated {
+    background-color: var(--palette-surface-primary-elevated);
+    color: var(--font-color-subtle);
+  }
+
+  .button-color-regular-transparent {
+    background-color: transparent;
+    color: var(--font-color-subtle);
+  }
+
+  .button-color-regular-transparent:hover {
+    background-color: var(--palette-surface-primary-elevated);
+    color: var(--font-color-content);
+  }

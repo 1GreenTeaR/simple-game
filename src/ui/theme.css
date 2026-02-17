@@ -1,0 +1,130 @@
+:root {
+    --palette-primary: #808080;
+    --palette-primary-light: #b0b0b0;
+    --palette-primary-dark: #333333;
+    --palette-secondary: #be3c47;
+    --palette-secondary-light: #e57b73;
+    --palette-secondary-dark: #922b3a;
+
+    --palette-primary-contrast: #faf7f6;
+    --palette-secondary-contrast: #faf7f6;
+
+    --palette-positive: #47a046;
+    --palette-positive-light: #73d456;
+    --palette-positive-dark: #254626;
+    --palette-negative: #c82736;
+    --palette-negative-light: #f76e70;
+    --palette-negative-dark: #6b1626;
+
+    --palette-warning: #fcd748;
+    --palette-warning-light: #fff179;
+    --palette-warning-dark: #c4950e;
+
+    --palette-background: #4c4c4c;
+
+    --palette-surface-primary: #b9b9b9;
+    --palette-surface-primary-elevated: #e3e3e3;
+    --palette-surface-secondary: #7c7c7c;
+    --palette-surface-secondary-elevated: #e5e5e5;
+
+    --border-radius-full: 0px;
+    --border-radius-double: 0px;
+    --border-radius-half: 0px;
+    --border-radius-quarter: 0px;
+
+    --spacing-full: 8px;
+    --spacing-double: 16px;
+    --spacing-half: 4px;
+    --spacing-quarter: 2px;
+
+    --font-weight-bold: 700;
+    --font-weight-regular: 500;
+    --font-weight-light: 400;
+
+    --font-color-main: #2a272b;
+    --font-color-content: #49484e;
+    --font-color-subtle: #8b8b8f;
+    --font-color-hidden: #c5c5c9;
+
+    --input-height-s: 32px;
+    --input-height-m: 40px;
+    --input-height-l: 48px;
+    --input-height-xl: 56px;
+
+    --transition-simple: 0s;
+    --transition-complex: 0s;
+
+    --shadow-normal: none;
+}
+
+html.light {
+    --palette-primary: #808080;
+    --palette-primary-light: #b0b0b0;
+    --palette-primary-dark: #333333;
+    --palette-secondary: #be3c47;
+    --palette-secondary-light: #e57b73;
+    --palette-secondary-dark: #922b3a;
+
+    --palette-primary-contrast: #faf7f6;
+    --palette-secondary-contrast: #faf7f6;
+
+    --palette-positive: #47a046;
+    --palette-positive-light: #73d456;
+    --palette-positive-dark: #254626;
+    --palette-negative: #c82736;
+    --palette-negative-light: #f76e70;
+    --palette-negative-dark: #6b1626;
+
+    --palette-warning: #fcd748;
+    --palette-warning-light: #fff179;
+    --palette-warning-dark: #c4950e;
+
+    --palette-background: #cccccc;
+
+    --palette-surface-primary: #f3f3f3;
+    --palette-surface-primary-elevated: #e0e0e0;
+    --palette-surface-secondary: #bbbbbb;
+    --palette-surface-secondary-elevated: #e5e5e5;
+
+    --border-radius-full: 0px;
+    --border-radius-double: 0px;
+    --border-radius-half: 0px;
+    --border-radius-quarter: 0px;
+
+    --spacing-full: 8px;
+    --spacing-double: 16px;
+    --spacing-half: 4px;
+    --spacing-quarter: 2px;
+
+    --font-weight-bold: 700;
+    --font-weight-regular: 500;
+    --font-weight-light: 400;
+
+    --font-color-main: #22203c;
+    --font-color-content: #353042;
+    --font-color-subtle: #615e61;
+    --font-color-hidden: #9b9b9f;
+
+    --input-height-s: 32px;
+    --input-height-m: 40px;
+    --input-height-l: 48px;
+    --input-height-xl: 56px;
+
+    --transition-simple: 0s;
+    --transition-complex: 0s;
+
+    --shadow-normal: none;
+
+    --palette-background: #f5f5f5;
+
+    --palette-surface-primary: #f9f9f9;
+    --palette-surface-primary-elevated: #e0e0e0;
+    --palette-surface-secondary: #bbbbbb;
+    --palette-surface-secondary-elevated: #e5e5e5;
+
+    --font-color-main: #22203c;
+    --font-color-content: #353042;
+    --font-color-subtle: #615e61;
+    --font-color-hidden: #9b9b9f;
+    
+}
