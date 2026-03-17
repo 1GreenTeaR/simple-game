@@ -1,0 +1,31 @@
+.canvas-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 18px;
+  background: #45474b;
+  border-radius: 0.75em;
+  box-shadow:
+    0 4px 24px 0 rgba(0,0,0,0.28),
+    inset 0 0 0 2px #61656a,
+    inset 0 1px 0 4px #394049;
+  border: 2.5px solid #2e3136;
+  font-family: 'Press Start 2P', 'VT323', 'Consolas', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  max-height: 600px;
+}
+
+.canvas {
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: crosshair;
+  background: transparent;
+  image-rendering: pixelated;
+}
