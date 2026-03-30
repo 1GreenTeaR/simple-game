@@ -5,6 +5,8 @@ type Tool = "brush" | "eraser";
 
 type Props = {
   tool: Tool;
+  collapsed: boolean;
+  brushSize: number;
 };
 
 // Canvas size in CSS pixels
@@ -15,8 +17,7 @@ const CANVAS_REAL_WIDTH = 200;
 const CANVAS_REAL_HEIGHT = 200;
 // const CANVAS_SCALE = CANVAS_WIDTH / CANVAS_REAL_WIDTH;
 
-export function Canvas({ tool }: Props) {
-  // DOM canvas element.
+export function Canvas({ tool, collapsed, brushSize: toolSize }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Draw state is kept in refs so mouse events don't cause re-renders.
@@ -36,11 +37,9 @@ export function Canvas({ tool }: Props) {
       from: { x: number; y: number },
       to: { x: number; y: number },
     ) => {
-      // Brush size is defined in *REAL* pixels and will be made changeable in the future.
-
-      const DEFAULT_BRUSH_SIZE = 1; //Set up for future configurability
-      const size = DEFAULT_BRUSH_SIZE;
+      const size = toolSize;
       const half = Math.floor(size / 2);
+
       let x0 = Math.round(from.x);
       let y0 = Math.round(from.y);
       const x1 = Math.round(to.x);
@@ -69,7 +68,7 @@ export function Canvas({ tool }: Props) {
         }
       }
     },
-    [tool],
+    [tool, toolSize],
   );
 
   // Push the current buffer into undo history.
@@ -239,7 +238,7 @@ export function Canvas({ tool }: Props) {
   }, [handleUndo]);
 
   return (
-    <div className="canvas-container">
+    <div className={`canvas-container ${collapsed ? "is-collapsed" : ""}`}>
       <canvas
         ref={canvasRef}
         className="canvas"

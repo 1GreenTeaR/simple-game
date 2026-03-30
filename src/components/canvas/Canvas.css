@@ -17,6 +17,21 @@
   justify-content: center;
   max-width: 600px;
   max-height: 600px;
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease,
+    max-height 180ms ease,
+    padding 180ms ease,
+    border-width 180ms ease;
+}
+
+.canvas-container.is-collapsed {
+  opacity: 0;
+  max-height: 0;
+  padding: 0;
+  border-width: 0;
+  transform: translate(-50%, -50%) scale(0.98);
+  pointer-events: none;
 }
 
 .canvas {
