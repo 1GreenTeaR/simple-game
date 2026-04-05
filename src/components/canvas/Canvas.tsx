@@ -7,6 +7,7 @@ type Props = {
   tool: Tool;
   collapsed: boolean;
   brushSize: number;
+  brushColor: string;
 };
 
 // Canvas size in CSS pixels
@@ -17,7 +18,12 @@ const CANVAS_REAL_WIDTH = 200;
 const CANVAS_REAL_HEIGHT = 200;
 // const CANVAS_SCALE = CANVAS_WIDTH / CANVAS_REAL_WIDTH;
 
-export function Canvas({ tool, collapsed, brushSize: toolSize }: Props) {
+export function Canvas({
+  tool,
+  collapsed,
+  brushSize: toolSize,
+  brushColor,
+}: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Draw state is kept in refs so mouse events don't cause re-renders.
@@ -52,7 +58,7 @@ export function Canvas({ tool, collapsed, brushSize: toolSize }: Props) {
       let err = dx - dy;
 
       // Eraser is just painting with the background color.
-      ctx.fillStyle = tool === "brush" ? "#111827" : "#ffffff";
+      ctx.fillStyle = tool === "brush" ? brushColor : "#FFFFFF";
 
       while (true) {
         ctx.fillRect(x0 - half, y0 - half, size, size);
@@ -68,7 +74,7 @@ export function Canvas({ tool, collapsed, brushSize: toolSize }: Props) {
         }
       }
     },
-    [tool, toolSize],
+    [tool, toolSize, brushColor],
   );
 
   // Push the current buffer into undo history.

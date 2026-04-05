@@ -9,8 +9,8 @@ type Tool = "brush" | "eraser";
 function App() {
   const [tool, setTool] = useState<Tool>("brush");
   const [showCanvas, setShowCanvas] = useState(true);
-  const [brushSize, setBrushSize] = useState(1);
-
+  const [toolSize, setToolSize] = useState(1);
+  const [color, setColor] = useState("#000000");
   return (
     <>
       <Toolbar activeTool={tool} onSelectTool={setTool} />
@@ -24,20 +24,32 @@ function App() {
           {showCanvas ? "Fold Canvas" : "Unfold Canvas"}
         </Button>
       </div>
-      <div className="tool-size-container">
-        <div className="slider-nameplate">Size</div>
-        <div className="tool-size-slider">
-          <input
-            type="range"
-            min="1"
-            max="100"
-            value={brushSize}
-            onChange={(e) => setBrushSize(Number(e.target.value))}
-          />
+      <div className="toolbox">
+        <div className="slider">
+          <div className="slider-nameplate">Size: {toolSize} px</div>
+          <div className="tool-size-slider">
+            <input
+              type="range"
+              min="1"
+              max="100"
+              value={toolSize}
+              onChange={(e) => setToolSize(Number(e.target.value))}
+            />
+          </div>
         </div>
+        <input
+          type="color"
+          value={color}
+          onChange={(e) => setColor(String(e.target.value))}
+        />
       </div>
 
-      <Canvas tool={tool} collapsed={!showCanvas} brushSize={brushSize} />
+      <Canvas
+        tool={tool}
+        collapsed={!showCanvas}
+        brushSize={toolSize}
+        brushColor={color}
+      />
     </>
   );
 }
