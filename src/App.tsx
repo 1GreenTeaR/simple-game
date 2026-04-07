@@ -3,6 +3,7 @@ import "./App.css";
 import { Canvas } from "./components/canvas/Canvas";
 import Toolbar from "./components/toolbar/Toolbar";
 import { Button } from "./ui/button/Button";
+import { downloadCanvas } from "./components/canvas/download-canvas/downloadCanvas";
 
 type Tool = "brush" | "eraser";
 
@@ -14,16 +15,27 @@ function App() {
   return (
     <>
       <Toolbar activeTool={tool} onSelectTool={setTool} />
-      <div className="fold-toggle">
+      <div className="functional-buttons">
         <Button
+          className="fold-canvas"
           color={showCanvas ? "primary" : "secondary"}
           size="m"
-          padding="full"
+          padding="none"
           onClick={() => setShowCanvas((prev) => !prev)}
         >
           {showCanvas ? "Fold Canvas" : "Unfold Canvas"}
         </Button>
+
+        <Button
+          size="m"
+          padding="none"
+          className="download-canvas"
+          onClick={downloadCanvas}
+        >
+          Download canvas
+        </Button>
       </div>
+
       <div className="toolbox">
         <div className="slider">
           <div className="slider-nameplate">Size: {toolSize} px</div>

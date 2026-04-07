@@ -31,6 +31,7 @@ export function Button({
   return (
     <div className={`button-wrapper ${className}`} ref={wrapperRef}>
       <button
+        type="button"
         ref={buttonRef}
         onClick={onClick}
         color={color}
