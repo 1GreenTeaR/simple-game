@@ -2,11 +2,11 @@
   display: flex;
   font: inherit;
   border-radius: var(--border-radius-full);
-  border: 3px solid #101527;
-  outline: 2px solid #5f6887;
+  border: 3px solid var(--pixel-panel-border);
+  outline: 2px solid var(--pixel-panel-outline);
   box-shadow:
-    0 4px 0 #101527,
-    2px 6px 0 rgba(0, 0, 0, 0.35);
+    0 4px 0 var(--pixel-panel-border),
+    2px 6px 0 var(--pixel-shadow-color);
   padding: 0 var(--spacing-double);
   font-size: 0.72rem;
   font-weight: var(--font-weight-bold);
@@ -27,8 +27,8 @@
 .button:active {
   transform: translateY(2px);
   box-shadow:
-    0 2px 0 #101527,
-    1px 3px 0 rgba(0, 0, 0, 0.35);
+    0 2px 0 var(--pixel-panel-border),
+    1px 3px 0 var(--pixel-shadow-color);
 }
 
   .button-padding-full{

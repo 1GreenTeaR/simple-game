@@ -9,12 +9,12 @@
   gap: 8px;
   align-items: center;
   padding: 12px 10px;
-  background: #2f3444;
-  border: 3px solid #101527;
-  outline: 3px solid #5f6887;
+  background: var(--pixel-panel-bg);
+  border: 3px solid var(--pixel-panel-border);
+  outline: 3px solid var(--pixel-panel-outline);
   box-shadow:
-    0 10px 0 #181c2d,
-    0 16px 20px rgba(0, 0, 0, 0.35);
+    0 10px 0 var(--pixel-panel-depth),
+    0 16px 20px var(--pixel-shadow-color);
   image-rendering: pixelated;
   font-family: "Press Start 2P", "VT323", "Consolas", monospace;
 }
