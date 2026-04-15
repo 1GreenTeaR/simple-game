@@ -1,20 +1,35 @@
 .button {
-    display: flex;
-    font: inherit;
-    /* border: none; */
-    border-radius: var(--border-radius-full);
-    padding: 0 var(--spacing-double);
-    font-size: 1em;
-    font-weight: var(--font-weight-bold);
-    font-family: inherit;
-    cursor: pointer;
-    user-select: none;
-    width: 100%;
-    transition: background-color var(--transition-simple), transform 0.1s linear;
+  display: flex;
+  font: inherit;
+  border-radius: var(--border-radius-full);
+  border: 3px solid #101527;
+  outline: 2px solid #5f6887;
+  box-shadow:
+    0 4px 0 #101527,
+    2px 6px 0 rgba(0, 0, 0, 0.35);
+  padding: 0 var(--spacing-double);
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-bold);
+  font-family: inherit;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  transition:
+    transform 90ms linear,
+    filter 120ms linear,
+    background-color var(--transition-simple);
+  justify-content: center;
+  align-items: center;
+}
 
-    justify-content: center;
-    align-items: center;
-  }
+.button:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 2px 0 #101527,
+    1px 3px 0 rgba(0, 0, 0, 0.35);
+}
 
   .button-padding-full{
     padding: 0 var(--spacing-double);
@@ -31,25 +46,25 @@
   .button-size-s {
     height: var(--input-height-s);
     border-radius: var(--border-radius-half);
-    font-size: 14px;
+    font-size: 0.62rem;
     min-width: var(--input-height-s);
   }
 
   .button-size-m {
     height: var(--input-height-m);
-    font-size: 15px;
+    font-size: 0.66rem;
     min-width: var(--input-height-m)
   }
 
   .button-size-l {
     height: var(--input-height-l);
-    font-size: 16px;
+    font-size: 0.7rem;
     min-width: var(--input-height-l)
   }
   
   .button-size-xl {
     height: var(--input-height-xl);
-    font-size: 17px;
+    font-size: 0.8rem;
     min-width: var(--input-height-xl)
   }
 
@@ -65,7 +80,7 @@
   }
 
   .button-color-primary:hover {
-    background-color: var(--palette-surface-primary);
+    filter: brightness(1.08);
   }
 
   .button-color-secondary{
@@ -74,7 +89,7 @@
   }
 
   .button-color-secondary:hover {
-    background-color: var(--palette-secondary-dark);
+    filter: brightness(1.08);
   }
 
   .button-color-regular {
@@ -83,7 +98,7 @@
   }
 
   .button-color-regular:hover {
-    background-color: var(--palette-surface-primary-elevated);
+    filter: brightness(1.08);
     color: var(--font-color-content);
   }
 
@@ -102,3 +117,7 @@
     background-color: var(--palette-surface-primary-elevated);
     color: var(--font-color-content);
   }
+
+.button-content {
+  white-space: nowrap;
+}

@@ -4,6 +4,7 @@ import "./Canvas.css";
 type Tool = "brush" | "eraser";
 
 type Props = {
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
   tool: Tool;
   collapsed: boolean;
   brushSize: number;
@@ -19,13 +20,12 @@ const CANVAS_REAL_HEIGHT = 200;
 // const CANVAS_SCALE = CANVAS_WIDTH / CANVAS_REAL_WIDTH;
 
 export function Canvas({
+  canvasRef,
   tool,
   collapsed,
   brushSize: toolSize,
   brushColor,
 }: Props) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
   // Draw state is kept in refs so mouse events don't cause re-renders.
   const isDrawingRef = useRef(false);
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
@@ -86,7 +86,7 @@ export function Canvas({
 
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     historyRef.current.push(imageData);
-  }, []);
+  }, [canvasRef]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -113,7 +113,7 @@ export function Canvas({
 
     historyRef.current = [];
     saveSnapshot();
-  }, [saveSnapshot]);
+  }, [saveSnapshot, canvasRef]);
 
   // Convert mouse position (CSS pixels) into REAL buffer coordinates (200×200).
   const getCanvasPoint = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -223,7 +223,7 @@ export function Canvas({
     history.pop();
     const previous = history[history.length - 1];
     ctx.putImageData(previous, 0, 0);
-  }, []);
+  }, [canvasRef]);
 
   useEffect(() => {
     // Ctrl/Cmd+Z to undo (canvas-only; prevents the browser default binding).

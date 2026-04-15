@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import { Canvas } from "./components/canvas/Canvas";
 import Toolbar from "./components/toolbar/Toolbar";
@@ -12,6 +12,7 @@ function App() {
   const [showCanvas, setShowCanvas] = useState(true);
   const [toolSize, setToolSize] = useState(1);
   const [color, setColor] = useState("#000000");
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   return (
     <>
       <Toolbar activeTool={tool} onSelectTool={setTool} />
@@ -30,7 +31,7 @@ function App() {
           size="m"
           padding="none"
           className="download-canvas"
-          onClick={downloadCanvas}
+          onClick={() => downloadCanvas(canvasRef.current)}
         >
           Download canvas
         </Button>
@@ -57,6 +58,7 @@ function App() {
       </div>
 
       <Canvas
+        canvasRef={canvasRef}
         tool={tool}
         collapsed={!showCanvas}
         brushSize={toolSize}

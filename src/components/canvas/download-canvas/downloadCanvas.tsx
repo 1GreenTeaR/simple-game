@@ -1,23 +1,13 @@
-let isDownloading = false;
+export function downloadCanvas(canvas: HTMLCanvasElement | null) {
+  if (!canvas) return;
 
-export function downloadCanvas() {
-  if (isDownloading) return;
-  isDownloading = true;
-
-  const canvas = document.querySelector("canvas");
-  if (!canvas) {
-    isDownloading = false;
-    return;
+  try {
+    const canvasData = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = canvasData;
+    link.download = `Canvas-${Date.now()}.png`;
+    link.click();
+  } catch (error) {
+    console.error("Failed to download canvas image:", error);
   }
-
-  const canvasData = canvas.toDataURL("image/png");
-  const link = document.createElement("a");
-  link.href = canvasData;
-  link.download = "canvas.png";
-  link.click();
-
-  // Release the lock on the next frame to prevent rapid duplicate downloads.
-  requestAnimationFrame(() => {
-    isDownloading = false;
-  });
 }
