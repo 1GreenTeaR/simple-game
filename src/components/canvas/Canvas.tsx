@@ -5,15 +5,15 @@ type Tool = "brush" | "eraser";
 
 type Props = {
   canvasRef: React.RefObject<HTMLCanvasElement | null>;
+  undoRef?: React.RefObject<(() => void) | null>;
   tool: Tool;
   collapsed: boolean;
   brushSize: number;
   brushColor: string;
 };
 
-// Canvas size in CSS pixels
-const CANVAS_WIDTH = 600;
-const CANVAS_HEIGHT = 600;
+// Canvas max display size in CSS pixels (actual size is set in CSS).
+const CANVAS_DISPLAY_SIZE = 600;
 //canvas size in real pixels
 const CANVAS_REAL_WIDTH = 200;
 const CANVAS_REAL_HEIGHT = 200;
@@ -21,6 +21,7 @@ const CANVAS_REAL_HEIGHT = 200;
 
 export function Canvas({
   canvasRef,
+  undoRef,
   tool,
   collapsed,
   brushSize: toolSize,
@@ -96,10 +97,6 @@ export function Canvas({
     canvas.width = CANVAS_REAL_WIDTH;
     canvas.height = CANVAS_REAL_HEIGHT;
 
-    // Display size (scaled up for pixel size).
-    canvas.style.width = `${CANVAS_WIDTH}px`;
-    canvas.style.height = `${CANVAS_HEIGHT}px`;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -115,52 +112,26 @@ export function Canvas({
     saveSnapshot();
   }, [saveSnapshot, canvasRef]);
 
-  // Convert mouse position (CSS pixels) into REAL buffer coordinates (200×200).
-  const getCanvasPoint = (event: React.MouseEvent<HTMLCanvasElement>) => {
+  // Convert screen position (CSS pixels) into REAL buffer coordinates (200×200).
+  const getCanvasPointFromClient = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
     const rect = canvas.getBoundingClientRect();
     return {
-      x: ((event.clientX - rect.left) / rect.width) * CANVAS_REAL_WIDTH,
-      y: ((event.clientY - rect.top) / rect.height) * CANVAS_REAL_HEIGHT,
+      x: ((clientX - rect.left) / rect.width) * CANVAS_REAL_WIDTH,
+      y: ((clientY - rect.top) / rect.height) * CANVAS_REAL_HEIGHT,
     };
   };
 
-  const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    const point = getCanvasPoint(event);
-    if (!point) return;
-    isDrawingRef.current = true;
-    lastPointRef.current = point;
+  const getCanvasPoint = (event: React.MouseEvent<HTMLCanvasElement>) =>
+    getCanvasPointFromClient(event.clientX, event.clientY);
 
-    // If the user clicks without moving, `onMouseMove` won't fire.
-    // Stamp a single dot immediately so click = paint.
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    ctx.imageSmoothingEnabled = false;
-    drawPixelLine(ctx, point, point);
+  const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    startDrawingAt(event.clientX, event.clientY);
   };
 
   const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDrawingRef.current) return;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const point = getCanvasPoint(event);
-    const lastPoint = lastPointRef.current;
-    if (!point || !lastPoint) {
-      lastPointRef.current = point;
-      return;
-    }
-
-    // Extra safety: keep smoothing off even if some browser resets it.
-    ctx.imageSmoothingEnabled = false;
-    drawPixelLine(ctx, lastPoint, point);
-
-    lastPointRef.current = point;
+    continueDrawingAt(event.clientX, event.clientY);
   };
 
   const endDrawing = () => {
@@ -170,6 +141,60 @@ export function Canvas({
 
   const handleMouseUp = () => {
     // Snapshot after each completed stroke so undo removes whole strokes.
+    if (isDrawingRef.current) {
+      saveSnapshot();
+    }
+    endDrawing();
+  };
+
+  const startDrawingAt = (clientX: number, clientY: number) => {
+    const point = getCanvasPointFromClient(clientX, clientY);
+    if (!point) return;
+    isDrawingRef.current = true;
+    lastPointRef.current = point;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.imageSmoothingEnabled = false;
+    drawPixelLine(ctx, point, point);
+  };
+
+  const continueDrawingAt = (clientX: number, clientY: number) => {
+    if (!isDrawingRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const point = getCanvasPointFromClient(clientX, clientY);
+    const lastPoint = lastPointRef.current;
+    if (!point || !lastPoint) {
+      lastPointRef.current = point;
+      return;
+    }
+
+    ctx.imageSmoothingEnabled = false;
+    drawPixelLine(ctx, lastPoint, point);
+    lastPointRef.current = point;
+  };
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLCanvasElement>) => {
+    event.preventDefault();
+    const touch = event.touches[0];
+    if (!touch) return;
+    startDrawingAt(touch.clientX, touch.clientY);
+  };
+
+  const handleTouchMove = (event: React.TouchEvent<HTMLCanvasElement>) => {
+    event.preventDefault();
+    const touch = event.touches[0];
+    if (!touch) return;
+    continueDrawingAt(touch.clientX, touch.clientY);
+  };
+
+  const handleTouchEnd = () => {
     if (isDrawingRef.current) {
       saveSnapshot();
     }
@@ -226,6 +251,14 @@ export function Canvas({
   }, [canvasRef]);
 
   useEffect(() => {
+    if (!undoRef) return;
+    undoRef.current = handleUndo;
+    return () => {
+      undoRef.current = null;
+    };
+  }, [handleUndo, undoRef]);
+
+  useEffect(() => {
     // Ctrl/Cmd+Z to undo (canvas-only; prevents the browser default binding).
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
@@ -244,7 +277,14 @@ export function Canvas({
   }, [handleUndo]);
 
   return (
-    <div className={`canvas-container ${collapsed ? "is-collapsed" : ""}`}>
+    <div
+      className={`canvas-container ${collapsed ? "is-collapsed" : ""}`}
+      style={
+        {
+          "--canvas-display-size": `${CANVAS_DISPLAY_SIZE}px`,
+        } as React.CSSProperties
+      }
+    >
       <canvas
         ref={canvasRef}
         className="canvas"
@@ -252,6 +292,10 @@ export function Canvas({
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
       />
     </div>
   );

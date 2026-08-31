@@ -5,18 +5,62 @@
   text-align: center;
 }
 
-.toolbox {
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.bottom-menu {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 48px;
-  max-width: 620px;
+  max-width: 680px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+  padding: 0 0;
+}
+
+.undo-button {
+  flex: 0 0 auto;
+  width: 72px;
+  height: 72px;
+}
+
+.undo-button .button {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  min-height: 72px;
+  max-width: 72px;
+  max-height: 72px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.undo-icon {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.toolbox {
+  flex: 1;
+  min-width: 0;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 12px;
-  z-index: 10;
   background: var(--pixel-panel-bg);
   border: 3px solid var(--pixel-panel-border);
   box-shadow:
@@ -89,4 +133,104 @@
   align-items: center;
   gap: 10px;
   z-index: 10;
+  width: min(480px, calc(100vw - 48px));
+}
+
+@media (max-width: 640px) {
+  #root {
+    padding: 0.75rem;
+  }
+
+  .functional-buttons {
+    top: calc(12px + env(safe-area-inset-top, 0px));
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: min(480px, calc(100vw - 24px));
+    gap: 8px;
+  }
+
+  .bottom-menu {
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    max-width: none;
+    gap: 8px;
+  }
+
+  .undo-button {
+    width: 64px;
+    height: 64px;
+  }
+
+  .undo-button .button {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    min-height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+  }
+
+  .toolbox {
+    padding: 10px 12px;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+  }
+
+  .toolbox input[type="color"] {
+    width: 56px;
+    height: 44px;
+  }
+
+  .slider-nameplate {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .functional-buttons {
+    top: calc(6px + env(safe-area-inset-top, 0px));
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: min(480px, calc(100vw - 96px));
+    max-width: none;
+  }
+
+  .bottom-menu {
+    left: calc(72px + env(safe-area-inset-left, 0px));
+    right: calc(8px + env(safe-area-inset-right, 0px));
+    bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+    max-width: none;
+    gap: 8px;
+  }
+
+  .undo-button {
+    width: 56px;
+    height: 56px;
+  }
+
+  .undo-button .button {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    min-height: 56px;
+    max-width: 56px;
+    max-height: 56px;
+  }
+
+  .toolbox {
+    padding: 6px 8px;
+    gap: 8px;
+  }
+
+  .toolbox input[type="color"] {
+    width: 48px;
+    height: 40px;
+  }
+
+  .slider-nameplate {
+    font-size: 0.6rem;
+  }
 }

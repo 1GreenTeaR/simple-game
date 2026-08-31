@@ -31,92 +31,92 @@
     1px 3px 0 var(--pixel-shadow-color);
 }
 
-  .button-padding-full{
-    padding: 0 var(--spacing-double);
-  }
+.button-padding-full {
+  padding: 0 var(--spacing-double);
+}
 
-  .button-padding-none{
-    padding: 0;
-  }
+.button-padding-none {
+  padding: 0;
+}
 
 .button-wrapper {
   perspective: 200px;
 }
 
-  .button-size-s {
-    height: var(--input-height-s);
-    border-radius: var(--border-radius-half);
-    font-size: 0.62rem;
-    min-width: var(--input-height-s);
-  }
+.button-size-s {
+  height: var(--input-height-s);
+  border-radius: var(--border-radius-half);
+  font-size: 0.62rem;
+  min-width: var(--input-height-s);
+}
 
-  .button-size-m {
-    height: var(--input-height-m);
-    font-size: 0.66rem;
-    min-width: var(--input-height-m)
-  }
+.button-size-m {
+  height: var(--input-height-m);
+  font-size: 0.66rem;
+  min-width: var(--input-height-m)
+}
 
-  .button-size-l {
-    height: var(--input-height-l);
-    font-size: 0.7rem;
-    min-width: var(--input-height-l)
-  }
-  
-  .button-size-xl {
-    height: var(--input-height-xl);
-    font-size: 0.8rem;
-    min-width: var(--input-height-xl)
-  }
+.button-size-l {
+  height: var(--input-height-l);
+  font-size: 0.7rem;
+  min-width: var(--input-height-l)
+}
 
-  .button-disabled {
-    cursor: default;
-    opacity: 0.6;
-    pointer-events: none;
-  }
+.button-size-xl {
+  height: var(--input-height-xl);
+  font-size: 0.8rem;
+  min-width: var(--input-height-xl)
+}
 
-  .button-color-primary{
-    background-color: var(--palette-primary);
-    color: var(--palette-primary-contrast);
-  }
+.button-disabled {
+  cursor: default;
+  opacity: 0.6;
+  pointer-events: none;
+}
 
-  .button-color-primary:hover {
-    filter: brightness(1.08);
-  }
+.button-color-primary {
+  background-color: var(--palette-primary);
+  color: var(--palette-primary-contrast);
+}
 
-  .button-color-secondary{
-    background-color: var(--palette-secondary);
-    color: var(--palette-secondary-contrast);
-  }
+.button-color-primary:hover {
+  filter: brightness(1.08);
+}
 
-  .button-color-secondary:hover {
-    filter: brightness(1.08);
-  }
+.button-color-secondary {
+  background-color: var(--palette-secondary);
+  color: var(--palette-secondary-contrast);
+}
 
-  .button-color-regular {
-    background-color: var(--palette-surface-primary);
-    color: var(--font-color-subtle);
-  }
+.button-color-secondary:hover {
+  filter: brightness(1.08);
+}
 
-  .button-color-regular:hover {
-    filter: brightness(1.08);
-    color: var(--font-color-content);
-  }
+.button-color-regular {
+  background-color: var(--palette-surface-primary);
+  color: var(--font-color-subtle);
+}
+
+.button-color-regular:hover {
+  filter: brightness(1.08);
+  color: var(--font-color-content);
+}
 
 
-  .button-color-regular-elevated {
-    background-color: var(--palette-surface-primary-elevated);
-    color: var(--font-color-subtle);
-  }
+.button-color-regular-elevated {
+  background-color: var(--palette-surface-primary-elevated);
+  color: var(--font-color-subtle);
+}
 
-  .button-color-regular-transparent {
-    background-color: transparent;
-    color: var(--font-color-subtle);
-  }
+.button-color-regular-transparent {
+  background-color: transparent;
+  color: var(--font-color-subtle);
+}
 
-  .button-color-regular-transparent:hover {
-    background-color: var(--palette-surface-primary-elevated);
-    color: var(--font-color-content);
-  }
+.button-color-regular-transparent:hover {
+  background-color: var(--palette-surface-primary-elevated);
+  color: var(--font-color-content);
+}
 
 .button-content {
   white-space: nowrap;

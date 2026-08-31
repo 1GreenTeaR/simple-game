@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { Canvas } from "./components/canvas/Canvas";
 import Toolbar from "./components/toolbar/Toolbar";
@@ -13,6 +13,31 @@ function App() {
   const [toolSize, setToolSize] = useState(1);
   const [color, setColor] = useState("#000000");
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const undoRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target;
+      if (
+        target instanceof HTMLElement &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      if (event.key === "b" || event.key === "B") {
+        setTool("brush");
+      } else if (event.key === "e" || event.key === "E") {
+        setTool("eraser");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <>
       <Toolbar activeTool={tool} onSelectTool={setTool} />
@@ -37,7 +62,21 @@ function App() {
         </Button>
       </div>
 
-      <div className="toolbox">
+      <div className="bottom-menu">
+        <Button
+          size="m"
+          padding="none"
+          className="undo-button"
+          color="primary"
+          onClick={() => undoRef.current?.()}
+        >
+          <span className="undo-icon" aria-hidden="true">
+            ↩
+          </span>
+          <span className="sr-only">Undo</span>
+        </Button>
+
+        <div className="toolbox">
         <div className="slider">
           <div className="slider-nameplate">Size: {toolSize} px</div>
           <div className="tool-size-slider">
@@ -55,10 +94,12 @@ function App() {
           value={color}
           onChange={(e) => setColor(String(e.target.value))}
         />
+        </div>
       </div>
 
       <Canvas
         canvasRef={canvasRef}
+        undoRef={undoRef}
         tool={tool}
         collapsed={!showCanvas}
         brushSize={toolSize}
